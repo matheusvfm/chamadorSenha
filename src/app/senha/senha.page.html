@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Chamador de Senhas
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="currentSenha">
+    <ion-card-header [ngStyle]="{ 'background-color': currentSenha.color }">
+      <ion-card-title>{{ currentSenha.type }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h1>{{ currentSenha.number }}</h1>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="ion-padding">
+    <ion-button expand="full" (click)="nextSenha()">Próxima Senha</ion-button>
+  </div>
+</ion-content>
+
