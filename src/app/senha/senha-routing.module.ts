@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { SenhaPage } from './senha.page';
 
 const routes: Routes = [
+  // outras rotas...
   {
-    path: '',
+    path: 'senha',
     component: SenhaPage
-  }
+  },
+  // outras rotas...
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
 })
-export class SenhaPageRoutingModule {}
+export class AppRoutingModule { }
+

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 class Senha {
   constructor(public type: string, public color: string, public number: string) {}
@@ -9,15 +9,17 @@ class Senha {
   templateUrl: 'senha.page.html',
   styleUrls: ['senha.page.scss'],
 })
-export class SenhaPage {
+export class SenhaPage implements OnInit {
   senhas: Senha[] = [
     new Senha('EMERGÊNCIA', 'red', 'E001'),
     new Senha('EXAMES', 'blue', 'EX001'),
     new Senha('CONSULTAS', 'green', 'C001'),
   ];
-  currentSenha: Senha;
+  currentSenha: Senha = new Senha('', '', '');
 
-  constructor() {
+  constructor() {}
+
+  ngOnInit() {
     this.getNextSenha();
   }
 
@@ -26,7 +28,7 @@ export class SenhaPage {
       this.currentSenha = this.senhas[0];
       this.senhas.shift();
     } else {
-      this.currentSenha = null;
+      this.currentSenha = new Senha('', '', ''); // Valor padrão vazio
     }
   }
 
