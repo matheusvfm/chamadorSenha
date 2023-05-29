@@ -19,7 +19,7 @@ export class SenhaPage implements OnInit {
   senhaCounters: { [key: string]: number } = {
     'EMERGÊNCIA': 1,
     'EXAMES': 1,
-    'CONSULTAS': 1
+    'CONSULTAS': 1,
   };
 
   constructor() {}
@@ -35,7 +35,6 @@ export class SenhaPage implements OnInit {
       const nextNumber = this.getNextNumber(senha.type);
       senha.number = this.generateSenhaNumber(senha.type, nextNumber);
       this.currentSenha = senha;
-      this.senhas.splice(randomIndex, 1);
     } else {
       this.currentSenha = new Senha('', '', '');
     }
@@ -48,8 +47,26 @@ export class SenhaPage implements OnInit {
   }
 
   generateSenhaNumber(type: string, number: number): string {
+    let prefix = '';
+    if (type === 'EMERGÊNCIA') {
+      prefix = 'E';
+    } else if (type === 'EXAMES') {
+      prefix = 'EX';
+    } else if (type === 'CONSULTAS') {
+      prefix = 'C';
+    }
     const paddedNumber = number.toString().padStart(3, '0');
-    return `${type.charAt(0)}${paddedNumber}`;
+    return `${prefix}${paddedNumber}`;
+  }
+
+  chamarSenha(type: string) {
+    const senhaIndex = this.senhas.findIndex((senha) => senha.type === type);
+    if (senhaIndex !== -1) {
+      const senha = this.senhas[senhaIndex];
+      const nextNumber = this.getNextNumber(senha.type);
+      senha.number = this.generateSenhaNumber(senha.type, nextNumber);
+      this.currentSenha = senha;
+    }
   }
 
   nextSenha() {
